@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>US State Map</title>
 
@@ -20,8 +20,30 @@
     <!-- Our CSS -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
-  </head>
-  <body>
+    <style>
+      #dropdown { 
+          position: absolute; 
+          top: 80px; 
+          left: 10px; 
+          z-index: 1000; 
+      }
+      #yearSelector {
+          font-size: 20px; 
+          width: 200px;
+          padding: 10px;
+      }
+  </style>
+</head>
+<body>
+
+    <!-- Dropdown for selecting year -->
+    <div id="dropdown">
+        <select id="yearSelector">
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
+            <option value="2022">2022</option>
+        </select>
+    </div>
 
     <!-- map div -->
     <div id="map"></div>
@@ -29,5 +51,5 @@
     <!-- JavaScript file -->
     <script type="text/javascript" src="js/logic.js"></script>
 
-  </body>
+</body>
 </html>

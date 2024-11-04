@@ -66,62 +66,84 @@ var stateData = {"type":"FeatureCollection","features":[
 
 //Choose Color Function
 function chooseColor(percentage) {
-    if (percentage >= 36) return "#6E0000";
-    else if (percentage >= 35) return "#730A00";
-    else if (percentage >= 34) return "#781400";
-    else if (percentage >= 33) return "#7D1E00";
-    else if (percentage >= 32) return "#822800";
-    else if (percentage >= 31) return "#873200";
-    else if (percentage >= 30) return "#8C3C00";
-    else if (percentage >= 29) return "#914600";
-    else if (percentage >= 28) return "#965000";
-    else if (percentage >= 27) return "#9B5A00";
-    else if (percentage >= 26) return "#A06400";
-    else if (percentage >= 25) return "#A56E00";
-    else if (percentage >= 24) return "#AA7800";
-    else if (percentage >= 23) return "#AF8200";
-    else if (percentage >= 22) return "#B48C00";
-    else if (percentage >= 21) return "#B99600";
-    else if (percentage >= 20) return "#BEA000";
-    else if (percentage >= 19) return "#C3AA00";
-    else if (percentage >= 18) return "#C8B400";
-    else if (percentage >= 17) return "#CDBE00";
-    else if (percentage >= 16) return "#D2C800";
-    else if (percentage >= 15) return "#D7D200";
+    if (percentage >= 36) return "#500000";
+    else if (percentage >= 35) return "#550A00";
+    else if (percentage >= 34) return "#5A1400";
+    else if (percentage >= 33) return "#5F1E00";
+    else if (percentage >= 32) return "#642800";
+    else if (percentage >= 31) return "#693200";
+    else if (percentage >= 30) return "#6E3C00";
+    else if (percentage >= 29) return "#734600";
+    else if (percentage >= 28) return "#785000";
+    else if (percentage >= 27) return "#7C5A00";
+    else if (percentage >= 26) return "#826400";
+    else if (percentage >= 25) return "#876E00";
+    else if (percentage >= 24) return "#8C7800";
+    else if (percentage >= 23) return "#918200";
+    else if (percentage >= 22) return "#968C00";
+    else if (percentage >= 21) return "#9B9600";
+    else if (percentage >= 20) return "#A0A000";
+    else if (percentage >= 19) return "#9BAA00";
+    else if (percentage >= 18) return "#96B400";
+    else if (percentage >= 17) return "#91BE00";
+    else if (percentage >= 16) return "#8CC800";
+    else if (percentage >= 15) return "#87D200";
     else return "black";
   };
 
-//Coloring based on 2020 Data
-function style(feature) {
+//Choose Year
+function updateMap(year) {
+    myMap.eachLayer(function (layer) {
+        if (layer instanceof L.GeoJSON) {
+            myMap.removeLayer(layer);
+        }
+    });
+    L.geoJson(stateData, {
+        style: function(feature) {
+            return styling(feature, year);
+        },
+        onEachFeature: function(feature, layer) {
+            interactivity(feature, layer, year);
+        }
+    }).addTo(myMap);
+}
+
+//Coloring
+function styling(feature, year) {
     return {
         color: "white",
-        fillColor: chooseColor(feature.properties[2020]),
-        fillOpacity: 0.75,
+        fillColor: chooseColor(feature.properties[year]),
+        fillOpacity: 1.0,
         weight: 1.5
     };
 }
-L.geoJson(stateData, {style: style}).addTo(myMap);
 
+//Mouseover, Mouseout, Click
+function interactivity(feature, layer, year) {
+    layer.on({
+        mouseover: function() {
+            this.setStyle({ fillOpacity: 0.5 });
+        },
+        mouseout: function() {
+            this.setStyle({ fillOpacity: 1.0 });
+        },
+        click: function(event) {
+            const color = chooseColor(feature.properties[year]);
+            layer.bindPopup(
+                "<h1>" + feature.properties.name + "</h1> <hr> <h2>" + 
+                `An average of <span style="color: ${color};">${feature.properties[year]}%</span> of survey-takers engaged in therapy or took medication during ${year}.` + 
+                "</h2>"
+            ).openPopup();
+        }
+    });
+}
 
-//::::FUTURE WORK:::: -- also need dropdown for year
+// Initial rendering
+const defaultYear = "2020";
+updateMap(defaultYear);
 
-//       },
-//       onEachFeature: function(feature, layer) {
-//         layer.on({
-//           mouseover: function(event) {
-//             layer = event.target;
-//             layer.setStyle({
-//               fillOpacity: 0.95
-//             });
-//           },
-//           mouseout: function(event) {
-//             layer = event.target;
-//             layer.setStyle({
-//               fillOpacity: 0.5
-//             });
-//           },
-//         });
-////         layer.bindPopup("<h1>" + feature.properties.neighborhood + "</h1> <hr> <h2>" + feature.properties.borough + "</h2>");
-//       }
-//     }).addTo(myMap);
-//   });
+// Event listener for dropdown changes
+document.getElementById("yearSelector").addEventListener("change", function() {
+    const selectedYear = this.value;
+    updateMap(selectedYear);
+});
