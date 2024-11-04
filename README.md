@@ -46,6 +46,8 @@ How do states compare regarding overdose rates during the time frame?
 
 ![alt text](image-6.png)
 
+(State coordinates were found here: https://leafletjs.com/examples/choropleth/us-states.js)
+
 ## To interact with the project
 
 https://levifahring.github.io/ku_bootcamp_project3/Project%203/Scripts/us_state_map/index.html
