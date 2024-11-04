@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: './Project%203/Scripts/us_state_map/index.html'
+          path: './Project%203/Scripts/us_state_map'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
