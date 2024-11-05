@@ -52,8 +52,6 @@ How do states compare regarding overdose rates during the time frame?
 
 https://levifahring.github.io/ku_bootcamp_project3/Project%203/Scripts/us_state_map/index.html
 
-Instructions on how to use and interact with the project
-
 ## Ethical Consideration
 When presenting a project about mental health and SUD, it is crucial to approach the topic with sensitivity and ethical responsibility. First and foremost, it's essential to prioritize the mental health and well-being of the audience by providing content that is informative yet respectful, avoiding sensationalism or graphic details that could trigger distress. Clear content warnings should be included to prepare viewers for potentially distressing topics. Additionally, it is important to ensure accuracy in the information presented, drawing from credible sources and research to avoid spreading misinformation. Lastly, fostering an open dialogue that encourages understanding and compassion can help create a supportive environment, allowing individuals to engage with the subject matter thoughtfully and empathetically.
 
